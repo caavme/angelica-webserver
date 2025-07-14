@@ -24,6 +24,8 @@
     <Compile Include="angelica_webserver.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CHANGELOG.md" />
+    <Content Include="README.md" />
     <Content Include="source\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
