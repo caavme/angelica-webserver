@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angelica Webserver Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts for a modern look -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #222;
+        }
+
+        header {
+            background: #2980b9;
+            color: #fff;
+            padding: 2em 0 1em 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.08);
+        }
+
+        h1 {
+            margin: 0 0 0.5em 0;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #ecf0f1;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2em auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+            padding: 2em 2em 1em 2em;
+        }
+
+        .feature {
+            margin-bottom: 2em;
+            padding-bottom: 1em;
+            border-bottom: 1px solid #eee;
+        }
+
+            .feature:last-child {
+                border-bottom: none;
+            }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+
+        code, pre {
+            background: #f3f3f3;
+            padding: 0.3em 0.6em;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .endpoint {
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .token {
+            color: #e67e22;
+        }
+
+        .admin {
+            color: #c0392b;
+        }
+
+        ul {
+            padding-left: 1.2em;
+        }
+
+        footer {
+            text-align: center;
+            color: #888;
+            margin: 2em 0 1em 0;
+            font-size: 1em;
+        }
+
+        @media (max-width: 600px) {
+            main {
+                padding: 1em 0.5em;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: #27ae60;
+            color: #fff;
+            border-radius: 12px;
+            padding: 0.2em 0.8em;
+            font-size: 0.9em;
+            margin-left: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Angelica Webserver</h1>
+        <div class="subtitle">A modern Python webserver for development and production</div>
+    </header>
+    <main>
+        <div class="feature">
+            <h2>📂 Directory Listing <span class="badge">Development Mode</span></h2>
+            <p>In development mode, the root URL (<span class="endpoint">/</span>) returns a JSON list of files in the <code>source</code> directory, unless <code>index.html</code> is present.</p>
+            <pre>
+GET <span class="endpoint">/</span>
+Response: ["index.html", ...]
+            </pre>
+        </div>
+
+        <div class="feature">
+            <h2>🔒 Per-File Access Control</h2>
+            <p>Restrict access to files using a <code>.access</code> file. Only users with a valid token can access protected files.</p>
+            <pre>
+GET <span class="endpoint">/protected.txt</span>
+Header: <span class="token">Authorization: Bearer your_secret_token</span>
+            </pre>
+        </div>
+
+        <div class="feature">
+            <h2>🛠️ API Endpoints</h2>
+            <ul>
+                <li>
+                    <span class="endpoint">/api/status</span> – Get server status.<br>
+                    <pre>GET /api/status</pre>
+                </li>
+                <li>
+                    <span class="endpoint">/api/health</span> – Health check.<br>
+                    <pre>GET /api/health</pre>
+                </li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <h2>⬆️ File Upload</h2>
+            <p>Upload files via <span class="endpoint">/api/upload</span> using a POST request with <code>X-Filename</code> header.</p>
+            <pre>
+POST <span class="endpoint">/api/upload</span>
+Header: <span class="token">Authorization: Bearer your_secret_token</span>
+Header: X-Filename: myfile.txt
+Body: [file contents]
+            </pre>
+        </div>
+
+        <div class="feature">
+            <h2>🛡️ Admin Dashboard</h2>
+            <p>View audit logs at <span class="endpoint">/admin</span> (requires admin token).</p>
+            <pre>
+GET <span class="endpoint">/admin</span>
+Header: <span class="admin">Authorization: Bearer [ADMIN_TOKEN]</span>
+            </pre>
+        </div>
+
+        <div class="feature">
+            <h2>⚡ Hot Reload</h2>
+            <p>Changes in the <code>source</code> directory are detected automatically (no restart needed).</p>
+        </div>
+
+        <div class="feature">
+            <h2>🔗 Custom MIME Types & CORS</h2>
+            <p>Serve files with custom MIME types and CORS headers as configured in <code>.env</code>.</p>
+        </div>
+    </main>
+    <footer>
+        <hr>
+        <p>Powered by <strong>Angelica Webserver</strong> | <em>Development Mode</em></p>
+    </footer>
+</body>
+</html>
